@@ -1,7 +1,7 @@
 package climbstairs;
 
 public class Solution1 {
-    public int climbStairs(int n) {
+    public int climbStairs(int n) { //O(N)
         Integer[] memo = new Integer[n + 1];
         return dfs(n, memo);
     }
