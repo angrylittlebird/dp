@@ -4,7 +4,7 @@ package knapsack01;
 //设target等于元素和的一半，是否可以从【数组】中的挑选一些元素使得它们的和为【target】？
 
 //1. 这个问题的base case是什么？
-//f(i, 0) = true, i < nums.length
+//f(i, 0) = true, 0 <= i < nums.length
 
 //2. 这个问题有什么“状态”？
 //当给定的条件中有数组时，定义的状态有可能应包含【数组的取值范围】。
@@ -38,8 +38,8 @@ public class Solution1 {
 
     //判断数据nums[0, idx]之间是否 有子序列的和为target
     private boolean dfs(int[] nums, int idx, int target, Boolean[][] memo) {
-        if (target == 0) return true;
         if (idx == -1 || target < 0) return false;
+        if (target == 0) return true;
 
         if (memo[idx][target] != null) return memo[idx][target];
 
