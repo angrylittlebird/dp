@@ -4,7 +4,7 @@ package knapsack01;
 //设target等于元素和的一半，是否可以从【数组】中的挑选一些元素使得它们的和为【target】？
 
 //1. 这个问题的base case是什么？
-//f(i, 0) = true, i < nums.length
+//f(0, 0) = true; f(0, nums[0]) = true;
 
 //2. 这个问题有什么“状态”？
 //当给定的条件中有数组时，定义的状态有可能应包含【数组的取值范围】。
@@ -37,11 +37,11 @@ public class Solution2 {
         //dp[i][t] = dp[i-1][t] || dp[i-1][t-nums[i]]
         boolean[][] dp = new boolean[n][sum + 1];
         //init
-        for (int i = 0; i < dp.length; i++) dp[i][0] = true;
+        dp[0][0] = true;
+        dp[0][nums[0]] = true;
 
         for (int i = 1; i < n; i++) {
             for (int t = 0; t <= target; t++) {
-                //System.out.print("i:" + i + "," + "t:" + t + ";  ");
                 dp[i][t] |= dp[i - 1][t];
                 if (t >= nums[i]) dp[i][t] |= dp[i - 1][t - nums[i]];
             }
@@ -52,8 +52,8 @@ public class Solution2 {
 
     //是否可以从【数组】中的挑选一些元素使得它们的和为【target】
     private boolean dfs(int[] nums, int idx, int target, Boolean[][] memo) {
-        if (target == 0) return true;
         if (idx == -1 || target < 0) return false;
+        if (target == 0) return true;
 
         if (memo[idx][target] != null) return memo[idx][target];
 

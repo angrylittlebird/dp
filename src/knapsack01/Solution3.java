@@ -4,7 +4,7 @@ package knapsack01;
 //设target等于元素和的一半，是否可以从【数组】中的挑选一些元素使得它们的和为【target】？
 
 //1. 这个问题的base case是什么？
-//f(i, 0) = true, i < nums.length
+//f(0, 0) = true; f(0, nums[0]) = true;
 
 //2. 这个问题有什么“状态”？
 //当给定的条件中有数组时，定义的状态有可能应包含【数组的取值范围】。
@@ -39,6 +39,7 @@ public class Solution3 {
         boolean[] dp = new boolean[sum + 1];
         //init
         dp[0] = true;
+        dp[nums[0]] = true;
 
         for (int i = 1; i < n; i++) {
             for (int t = target; t >= 0; t--) {
@@ -63,6 +64,6 @@ public class Solution3 {
 
     public static void main(String[] args) {
         Solution3 solution3 = new Solution3();
-        solution3.canPartition(new int[]{1, 1, 1, 1, 1, 1});
+        solution3.canPartition(new int[]{1, 5, 11, 5});
     }
 }
