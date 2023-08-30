@@ -24,7 +24,8 @@ package knapsack01;
 //4. 如何定义 dp数组/函数 的含义来表现“状态”和“选择”？
 //      f(i, target) = f(i-1, target) || f(i-1, target - nums[i]); target >= nums[i] && i >= 0
 
-public class Solution1 {
+public class Solution2 {
+    //是否可以从【nums数组】中的挑选一些元素使得它们的和为【target】
     public boolean canPartition(int[] nums) {
         int sum = 0;
         for (int num : nums) sum += num;
@@ -32,11 +33,23 @@ public class Solution1 {
 
         int n = nums.length;
         int target = sum / 2;
-        Boolean[][] memo = new Boolean[n][target + 1];
-        return dfs(nums, n - 1, target, memo);
+        //判断数据nums[0, i]之间 是否可以挑选一些元素使得它们的和为【target】
+        //dp[i][t] = dp[i-1][t] || dp[i-1][t-nums[i]]
+        boolean[][] dp = new boolean[n][sum + 1];
+        //init
+        for (int i = 0; i < dp.length; i++) dp[i][0] = true;
+
+        for (int i = 1; i < n; i++) {
+            for (int t = 0; t <= target; t++) {
+                dp[i][t] |= dp[i - 1][t];
+                if (t >= nums[i]) dp[i][t] |= dp[i - 1][t - nums[i]];
+            }
+        }
+        return dp[n - 1][target];
     }
 
-    //判断数据nums[0, idx]之间是否 有子序列的和为target
+
+    //是否可以从【数组】中的挑选一些元素使得它们的和为【target】
     private boolean dfs(int[] nums, int idx, int target, Boolean[][] memo) {
         if (target == 0) return true;
         if (idx == -1 || target < 0) return false;
