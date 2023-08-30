@@ -19,7 +19,7 @@ public class Solution3 {
     }
 
     //f(n) = f(n-1) + f(n-2)
-    //走到第N个台阶有几种方式
+    //当处于第N阶楼梯时，往下走到第0阶楼梯有几种走法
     private int dfs(int n, Integer[] memo) {
         if (n == 1) return 1;
         if (n == 2) return 2;
